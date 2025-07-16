@@ -189,7 +189,7 @@
       "EPOCH_VOTING_CUTOFF": "518400",
       "FUNDS_SAFE": "0xf06016d822943c42e3cb7fc3a6a3b1889c1045f8"
     },
-    "governance": "0x807def5e7d057df05c796f4bc75c3fe82bd6eee1",
+    "governance": "0x108f48E558078C8eF2eb428E0774d7eCd01F6B1d",
     "curveUsdcBoldPool": "0xefc6516323fbd28e80b85a497b65a86243a54b3e",
     "curveUsdcBoldGauge": "0x07a01471fa544d9c6531b631e6a96a79a9ad05e9",
     "curveUsdcBoldInitiative": "0xba415afa8fcd65196764b5e08cb4dbf90bee33b4",

@@ -169,12 +169,16 @@ export const fetchV2Stats = async ({
     .then(owner => owner == AddressZero)
     .catch(() => false);
 
+  console.log("deployed", deployed);
+
   const [total_bold_supply, branches, spV2AverageApys, spUpfrontFee24h] = await Promise.all([
     // total_bold_supply
-    deployed ? contracts.boldToken.totalSupply({ blockTag }).then(decimalify) : Decimal.ZERO,
+    // deployed ? contracts.boldToken.totalSupply({ blockTag }).then(decimalify) : Decimal.ZERO,
+    contracts.boldToken.totalSupply({ blockTag }).then(decimalify),
 
     // branches
-    (deployed ? fetchBranchData : emptyBranchData)(contracts.branches)
+    // (deployed ? fetchBranchData : emptyBranchData)(contracts.branches)
+    fetchBranchData(contracts.branches)
       .then(branches => {
         return branches.map(branch => {
           const sp_deposits = Number(branch.sp_deposits);
@@ -197,21 +201,30 @@ export const fetchV2Stats = async ({
       }),
 
     // spV2AverageApys
-    deployed
-      ? fetchSpAverageApysFromDune({
-          branches: contracts.branches,
-          apiKey: duneApiKey,
-          url: duneSpApyUrl
-        })
-      : null,
+    // deployed
+    //   ? fetchSpAverageApysFromDune({
+    //       branches: contracts.branches,
+    //       apiKey: duneApiKey,
+    //       url: duneSpApyUrl
+    //     })
+    //   : null,
+    fetchSpAverageApysFromDune({
+      branches: contracts.branches,
+      apiKey: duneApiKey,
+      url: duneSpApyUrl
+    }),
 
     // spUpfrontFee24h
-    deployed
-      ? fetchSpUpfrontFeeFromDune({
-          apiKey: duneApiKey,
-          url: duneSpUpfrontFeeUrl
-        })
-      : null
+    // deployed
+    //   ? fetchSpUpfrontFeeFromDune({
+    //       apiKey: duneApiKey,
+    //       url: duneSpUpfrontFeeUrl
+    //     })
+    //   : null
+    fetchSpUpfrontFeeFromDune({
+      apiKey: duneApiKey,
+      url: duneSpUpfrontFeeUrl
+    })
   ]);
 
   const sp_apys = branches.map(b => b.sp_apy).filter(x => !isNaN(x));
