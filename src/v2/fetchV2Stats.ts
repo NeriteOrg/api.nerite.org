@@ -92,7 +92,8 @@ const fetchSpAverageApysFromDune = async ({
     result: { rows: sevenDaysApys }
   } = await duneFetch({
     apiKey,
-    url: `${url}?limit=${branches.length * 7}`,
+    // url: `${url}?limit=${branches.length * 8}`,
+    url,
     validate: isDuneSpAverageApyResponse
   });
 
